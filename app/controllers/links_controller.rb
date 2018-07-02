@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user , except: [:index , :show]
+  before_action :authenticate_user! , except: [:index , :show]
   # GET /links
   # GET /links.json
   def index
@@ -20,7 +20,20 @@ class LinksController < ApplicationController
   # GET /links/1/edit
   def edit
   end
-
+  def upvote
+    @link = Link.find(params[:id])
+    @user = current_user
+    @link.upvote_by @user
+    redirect_to links_url
+  end
+  
+  def downvote 
+  @link = Link.find(params[:id])
+    @user = current_user
+    @link.downvote_by @user
+    redirect_to links_url
+  
+  end
   # POST /links
   # POST /links.json
   def create
