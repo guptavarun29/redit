@@ -12,3 +12,12 @@
 
 <%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>
+
+
+  <%= @link.comments.count%>
+  <%= render :partial => @link.comments %>
+ <%= simple_form_for [@link ,Comment.new] do |f| %>
+  <%= f.text_area :body, :hint => "likh bc" %>
+  <%= f.submit "ADD comment"  %>
+<% end %>
+<!--[@link ,Comment.new]-->
